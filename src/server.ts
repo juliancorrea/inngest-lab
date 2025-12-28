@@ -31,6 +31,27 @@ app.get("/trigger/hello-world", async (req, res) => {
   }
 });
 
+// Endpoint para invocar hello-world de forma SÍNCRONA via step.invoke()
+// Dispara a função wrapper que usa step.invoke() internamente
+app.get("/invoke/hello-world", async (req, res) => {
+  try {
+    const result = await inngest.send({
+      name: "api/invoke.hello.world",
+      data: { email: `${new Date().toISOStr ing()}@gmail.com` },
+    });
+
+    console.log("Invoke event sent:", result);
+    res.json({ 
+      success: true, 
+      message: "Function will be invoked synchronously via step.invoke()", 
+      result 
+    });
+  } catch (error) {
+    console.error("Error invoking function:", error);
+    res.status(500).json({ error: "Failed to invoke function" });
+  }
+});
+
 // Endpoint para consultar status de uma execução
 app.get("/status/:runId", async (req, res) => {
   try {

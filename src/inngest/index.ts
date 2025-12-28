@@ -31,6 +31,25 @@ const helloWorld = inngest.createFunction(
   }
 );
 
+// Função wrapper que invoca hello-world de forma SÍNCRONA usando step.invoke()
+const invokeHelloWorld = inngest.createFunction(
+  {
+    id: "invoke-hello-world-wrapper",
+  },
+  { event: "api/invoke.hello.world" },
+  async ({ event, step }) => {
+    // step.invoke() chama outra função e AGUARDA o resultado
+    const result = await step.invoke("call-hello-world", {
+      function: helloWorld,
+      data: { email: event.data.email },
+      timeout: "30s", // Timeout opcional (padrão: 1 ano)
+    });
+
+    console.log("Received result from hello-world:", result);
+    return { success: true, invokedResult: result };
+  }
+);
+
 const cronTest = inngest.createFunction(
   {
     id: "cron-test",
@@ -51,4 +70,4 @@ const cronTest = inngest.createFunction(
   }
 );
 // Add the function to the exported array:
-export const functions = [helloWorld, cronTest];
+export const functions = [helloWorld, invokeHelloWorld, cronTest];
