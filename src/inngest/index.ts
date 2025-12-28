@@ -31,5 +31,24 @@ const helloWorld = inngest.createFunction(
   }
 );
 
+const cronTest = inngest.createFunction(
+  {
+    id: "cron-test",
+  },
+  { cron: "TZ=America/Sao_Paulo */1 * * * *" }, // A cada 1 minuto
+  async ({ event, step }) => {
+    await step.run("process-somethins", async () => {
+      console.log("Cron job executed at", new Date().toISOString());
+    });
+    await step.sleep("wait-a-moment", "2s");
+    await step.run("more-processing", async () => {
+      console.log("Still processing...", new Date().toISOString());
+    });
+    await step.sleep("wait-a-moment-2", "2s");
+    await step.run("log-timestamp", async () => {
+      console.log("Cron job executed at", new Date().toISOString());
+    });
+  }
+);
 // Add the function to the exported array:
-export const functions = [helloWorld];
+export const functions = [helloWorld, cronTest];
