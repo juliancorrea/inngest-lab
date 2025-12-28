@@ -14,5 +14,8 @@
   "dependencies": {
     "express": "^5.1.0",
     "inngest": "^3.48.1"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.6"
   }
 }
