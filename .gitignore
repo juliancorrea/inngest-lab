@@ -1,0 +1,6 @@
+node_modules/
+dist/
+*.logwhwha
+
+.env
+.DS_Store

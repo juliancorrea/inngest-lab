@@ -1,0 +1,18 @@
+{
+  "name": "inggest-tests",
+  "version": "1.0.0",
+  "description": "Minimal example of exam correction workflow using Inngest",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "dev": "bun --watch src/server.ts",
+    "start": "bun src/server.ts"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^5.1.0",
+    "inngest": "^3.48.1"
+  }
+}
