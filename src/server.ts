@@ -37,14 +37,14 @@ app.get("/invoke/hello-world", async (req, res) => {
   try {
     const result = await inngest.send({
       name: "api/invoke.hello.world",
-      data: { email: `${new Date().toISOStr ing()}@gmail.com` },
+      data: { email: `${new Date().toISOString()}@gmail.com` },
     });
 
     console.log("Invoke event sent:", result);
-    res.json({ 
-      success: true, 
-      message: "Function will be invoked synchronously via step.invoke()", 
-      result 
+    res.json({
+      success: true,
+      message: "Function will be invoked synchronously via step.invoke()",
+      result,
     });
   } catch (error) {
     console.error("Error invoking function:", error);
